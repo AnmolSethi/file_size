@@ -1,13 +1,21 @@
 library file_sizes;
 
+import 'types.dart';
+
 class FileSize {
-  static String getSize(dynamic size, {int precision = 2}) {
-    /*  [size] can be passed as number or as string
-        the optional parameter [precision] specifies the number 
-        of digits after comma/point (default is 2)  
-    */
+  ///  [size] can be passed as number or as string
+  ///  the optional parameter [PrecisionValue] specifies the number
+  ///  of digits after comma/point (default is [PrecisionValue.Two])
+  ///
+  /// Example:
+  /// ```dart
+  ///    FileSize.getSize(1024)
+  ///  ```
+  static String getSize(dynamic size,
+      {PrecisionValue precisionValue = PrecisionValue.Two}) {
     int divider = 1024;
     num _size;
+    int precision = _getPrecisionValue(precisionValue);
 
     try {
       _size = size is num ? size : int.parse(size.toString());
@@ -57,17 +65,22 @@ class FileSize {
   }
 }
 
-/// [FileSizeType] for getting the result in the desired string representation
-/// By default, it is set to [FileSizeType.Default]
-enum FileSizeType {
-  Default,
-  Bytes,
-  KiloBytes,
-  MegaBytes,
-  GigaBytes,
-  TeraBytes,
-  PetaBytes,
-  ExaBytes,
-  ZettaBytes,
-  YottaBytes
+int _getPrecisionValue(PrecisionValue value) {
+  switch (value) {
+    case PrecisionValue.None:
+      return 0;
+    case PrecisionValue.One:
+      return 1;
+    case PrecisionValue.Two:
+      return 2;
+    case PrecisionValue.Three:
+      return 3;
+    case PrecisionValue.Four:
+      return 4;
+    case PrecisionValue.Five:
+      return 5;
+    case PrecisionValue.Six:
+    default:
+      return 6;
+  }
 }
