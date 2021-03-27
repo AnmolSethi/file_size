@@ -1,3 +1,5 @@
+library file_sizes;
+
 class FileSize {
   static String getSize(dynamic size, {int precision = 2}) {
     /*  [size] can be passed as number or as string

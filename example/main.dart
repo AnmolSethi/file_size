@@ -1,4 +1,4 @@
-import 'package:file_size/file_size.dart';
+import 'package:file_sizes/file_sizes.dart';
 
 void main() {
   int baseNumber = 1024;

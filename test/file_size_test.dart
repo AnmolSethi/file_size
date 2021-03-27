@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import '../lib/file_size.dart';
+import '../lib/file_sizes.dart';
 
 void main() {
   test("Test for Bytes [int]", () {
