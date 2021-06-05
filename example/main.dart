@@ -1,21 +1,31 @@
 import 'package:file_sizes/file_sizes.dart';
 
 void main() {
-  /// Initialze [FileSize] Class
-  FileSize fileSize = FileSize();
+  /// Integer Values
+  ///
+  /// 12.06 KB
+  print(FileSize.getSize(12345));
 
-  /// 12.35 KB
-  print(fileSize.getSize(12345));
+  /// 12.06 KB
+  print(FileSize.getKiloBytes(12345));
 
-  /// 12.35 KB
-  print(fileSize.getKiloBytes(12345));
+  /// 12.05566 KB
+  print(FileSize.getKiloBytes(12345, value: PrecisionValue.Five));
 
-  /// 12.34500 KB
-  print(fileSize.getKiloBytes(12345, value: PrecisionValue.Five));
+  /// 96450.712 KB
+  print(FileSize.getKiloBytes(98765532, value: PrecisionValue.Three));
 
-  /// 98765.532 KB
-  print(fileSize.getKiloBytes(98765532, value: PrecisionValue.Three));
+  /// String Values
+  ///
+  /// 12.06 KB
+  print(FileSize.getSize('12345'));
 
-  /// 98765.532 KB
-  print(fileSize.getPetaBytes(9876522532, value: PrecisionValue.Six));
+  /// 12.06 KB
+  print(FileSize.getKiloBytes('12345'));
+
+  /// 12.05566 KB
+  print(FileSize.getKiloBytes('12345', value: PrecisionValue.Five));
+
+  /// 96450.712 KB
+  print(FileSize.getKiloBytes('98765532', value: PrecisionValue.Three));
 }

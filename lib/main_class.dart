@@ -1,19 +1,9 @@
 part of file_sizes;
 
-abstract class Sizes {
-  String getBytes(int data);
-  String getKiloBytes(int data, {PrecisionValue? value});
-  String getMegaBytes(int data, {PrecisionValue? value});
-  String getGigaBytes(int data, {PrecisionValue? value});
-  String getTeraBytes(int data, {PrecisionValue? value});
-  String getPetaBytes(int data, {PrecisionValue? value});
-  String getExaBytes(int data, {PrecisionValue? value});
-  String getZettaBytes(int data, {PrecisionValue? value});
-  String getYottaBytes(int data, {PrecisionValue? value});
-}
+const int _divider = 1024;
 
-class FileSize implements Sizes {
-  PrecisionValue _precisionValue = PrecisionValue.Two;
+class FileSize {
+  static PrecisionValue _precisionValue = PrecisionValue.Two;
 
   ///  [size] can be passed as number or as string
   ///  the optional parameter [PrecisionValue] specifies the number
@@ -24,19 +14,11 @@ class FileSize implements Sizes {
   ///    FileSize.getSize(1024)
   ///    FileSize.getSize(1024, precisionValue = PrecisionValue.Four)
   ///  ```
-  String getSize(dynamic size,
+  static String getSize(dynamic size,
       {PrecisionValue precisionValue = PrecisionValue.Two}) {
-    int divider = 1024;
-    int _size;
-    this._precisionValue = precisionValue;
+    int? _size = _parseValue(size);
 
-    try {
-      _size = size is int ? size : int.parse(size.toString());
-    } on FormatException catch (e) {
-      throw FormatException("Can not parse the size parameter: ${e.message}");
-    }
-
-    if (_size < divider) return getBytes(_size);
+    if (_size < _divider) return getBytes(_size);
     if (_size < _getDividerValue(2)) return getKiloBytes(_size);
     if (_size < _getDividerValue(3)) return getMegaBytes(_size);
     if (_size < _getDividerValue(4)) return getGigaBytes(_size);
@@ -51,83 +33,82 @@ class FileSize implements Sizes {
   /// It returns the size of the file in bytes
   ///
   /// [FileSizeType.Bytes]
-  @override
-  String getBytes(int data) => "$data B";
+  static String getBytes(dynamic data) => "${_parseValue(data)} B";
 
-  /// It returns the size of the file in bytes
+  /// It returns the size of the file in kilo bytes
   ///
   /// [FileSizeType.KiloBytes]
-  @override
-  String getKiloBytes(int data, {PrecisionValue? value}) {
-    return "${(data / 1024).toStringAsFixed(_getPrecisionValue(value ?? _precisionValue))} KB";
+  static String getKiloBytes(dynamic data, {PrecisionValue? value}) {
+    return "${(_parseValue(data) / 1024).toStringAsFixed(_getPrecisionValue(value ?? _precisionValue))} KB";
   }
 
-  /// It returns the size of the file in bytes
+  /// It returns the size of the file in mega bytes
   ///
   /// [FileSizeType.MegaBytes]
-  @override
-  String getMegaBytes(int data, {PrecisionValue? value}) {
-    return "${(data / _getDividerValue(2)).toStringAsFixed(_getPrecisionValue(value ?? _precisionValue))} MB";
+  static String getMegaBytes(dynamic data, {PrecisionValue? value}) {
+    return "${(_parseValue(data) / _getDividerValue(2)).toStringAsFixed(_getPrecisionValue(value ?? _precisionValue))} MB";
   }
 
-  /// It returns the size of the file in bytes
+  /// It returns the size of the file in giga bytes
   ///
   /// [FileSizeType.GigaBytes]
-  @override
-  String getGigaBytes(int data, {PrecisionValue? value}) {
-    return "${(data / _getDividerValue(3)).toStringAsFixed(_getPrecisionValue(value ?? _precisionValue))} GB";
+  static String getGigaBytes(dynamic data, {PrecisionValue? value}) {
+    return "${(_parseValue(data) / _getDividerValue(3)).toStringAsFixed(_getPrecisionValue(value ?? _precisionValue))} GB";
   }
 
-  /// It returns the size of the file in bytes
+  /// It returns the size of the file in tera bytes
   ///
   /// [FileSizeType.TeraBytes]
-  @override
-  String getTeraBytes(int data, {PrecisionValue? value}) {
-    num r = data / _getDividerValue(4);
+  static String getTeraBytes(dynamic data, {PrecisionValue? value}) {
+    num r = _parseValue(data) / _getDividerValue(4);
     return "${r.toStringAsFixed(_getPrecisionValue(value ?? _precisionValue))} TB";
   }
 
-  /// It returns the size of the file in bytes
+  /// It returns the size of the file in peta bytes
   ///
   /// [FileSizeType.PetaBytes]
-  @override
-  String getPetaBytes(int data, {PrecisionValue? value}) {
-    num r = data / _getDividerValue(5);
+  static String getPetaBytes(dynamic data, {PrecisionValue? value}) {
+    num r = _parseValue(data) / _getDividerValue(5);
     return "${r.toStringAsFixed(_getPrecisionValue(value ?? _precisionValue))} PB";
   }
 
-  /// It returns the size of the file in bytes
+  /// It returns the size of the file in exa bytes
   ///
   /// [FileSizeType.ExaBytes]
-  @override
-  String getExaBytes(int data, {PrecisionValue? value}) {
-    num r = data / _getDividerValue(6);
+  static String getExaBytes(dynamic data, {PrecisionValue? value}) {
+    num r = _parseValue(data) / _getDividerValue(6);
     return "${r.toStringAsFixed(_getPrecisionValue(value ?? _precisionValue))} EB";
   }
 
-  /// It returns the size of the file in bytes
+  /// It returns the size of the file in yotta bytes
   ///
   /// [FileSizeType.YottaBytes]
-  @override
-  String getYottaBytes(int data, {PrecisionValue? value}) {
-    num r = data / _getDividerValue(7);
+  static String getYottaBytes(dynamic data, {PrecisionValue? value}) {
+    num r = _parseValue(data) / _getDividerValue(7);
     return "${r.toStringAsFixed(_getPrecisionValue(value ?? _precisionValue))} YB";
   }
 
-  /// It returns the size of the file in bytes
+  /// It returns the size of the file in zetta bytes
   ///
   /// [FileSizeType.ZettaBytes]
-  @override
-  String getZettaBytes(int data, {PrecisionValue? value}) {
-    num r = data / _getDividerValue(8);
+  static String getZettaBytes(dynamic data, {PrecisionValue? value}) {
+    num r = _parseValue(data) / _getDividerValue(8);
     return "${r.toStringAsFixed(_getPrecisionValue(value ?? _precisionValue))} ZB";
+  }
+
+  static int _parseValue(dynamic size) {
+    try {
+      return size is int ? size : int.parse(size.toString());
+    } on FormatException catch (e) {
+      throw FormatException("Can not parse the size parameter: ${e.message}");
+    }
   }
 }
 
 int _getDividerValue(int numberOf) {
-  int finalValue = 1024;
+  int finalValue = _divider;
   for (int i = 0; i < numberOf - 1; i++) {
-    finalValue *= 1024;
+    finalValue *= _divider;
   }
   return finalValue;
 }
