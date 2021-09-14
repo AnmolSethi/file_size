@@ -15,7 +15,7 @@ class FileSize {
   ///    FileSize.getSize(1024, precisionValue = PrecisionValue.Four)
   ///  ```
   static String getSize(dynamic size,
-      {PrecisionValue precisionValue = PrecisionValue.Two}) {
+      {PrecisionValue precision = PrecisionValue.Two}) {
     int? _size = _parseValue(size);
 
     if (_size < _divider) return getBytes(_size);
@@ -113,22 +113,5 @@ int _getDividerValue(int numberOf) {
   return finalValue;
 }
 
-int _getPrecisionValue(PrecisionValue value) {
-  switch (value) {
-    case PrecisionValue.None:
-      return 0;
-    case PrecisionValue.One:
-      return 1;
-    case PrecisionValue.Two:
-      return 2;
-    case PrecisionValue.Three:
-      return 3;
-    case PrecisionValue.Four:
-      return 4;
-    case PrecisionValue.Five:
-      return 5;
-    case PrecisionValue.Six:
-    default:
-      return 6;
-  }
-}
+int _getPrecisionValue(PrecisionValue value) =>
+    PrecisionValue.values.indexOf(value);

@@ -12,28 +12,28 @@ void main() {
 
   test("Test for KiloBytes [int]", () {
     expect(
-      FileSize.getSize(1024, precisionValue: PrecisionValue.None),
+      FileSize.getSize(1024, precision: PrecisionValue.None),
       "1.00 KB",
     );
   });
 
   test("Test for KiloBytes [String]", () {
     expect(
-      FileSize.getSize("1024", precisionValue: PrecisionValue.None),
+      FileSize.getSize("1024", precision: PrecisionValue.None),
       "1.00 KB",
     );
   });
 
   test("Test for MegaBytes [int]", () {
     expect(
-      FileSize.getSize(1024 * 1024, precisionValue: PrecisionValue.None),
+      FileSize.getSize(1024 * 1024, precision: PrecisionValue.None),
       "1.00 MB",
     );
   });
 
   test("Test for GigaBytes [int]", () {
     expect(
-      FileSize.getSize(1024 * 1024 * 1024, precisionValue: PrecisionValue.None),
+      FileSize.getSize(1024 * 1024 * 1024, precision: PrecisionValue.None),
       "1.00 GB",
     );
   });
@@ -41,7 +41,7 @@ void main() {
   test("Test for TeraBytes [int]", () {
     expect(
       FileSize.getSize(1024 * 1024 * 1024 * 1024,
-          precisionValue: PrecisionValue.Two),
+          precision: PrecisionValue.Two),
       "1.00 TB",
     );
   });
@@ -50,7 +50,7 @@ void main() {
     expect(
       FileSize.getSize(
         1024 * 1024 * 1024 * 1024 * 1024,
-        precisionValue: PrecisionValue.None,
+        precision: PrecisionValue.None,
       ),
       "1.00 PB",
     );

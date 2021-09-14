@@ -1,3 +1,7 @@
+## [1.0.5] - 14-Sept-2021.
+
+- Dependecies Updated
+
 ## [1.0.4] - 06-Jun-2021.
 
 - String methods added
