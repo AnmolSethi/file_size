@@ -1,3 +1,7 @@
+## [1.0.6] - 15-Sept-2021.
+
+- Dependecies Updated
+
 ## [1.0.5] - 14-Sept-2021.
 
 - Dependecies Updated
